@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tres en Raya (Tic Tac Toe) – IA con Base de Conocimiento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app" id="app">
+        <section class="card" id="left">
+            <div class="row" style="justify-content: space-between; align-items: start;">
+                <div>
+                    <div class="title">🎮 Tres en Raya / Base de Conocimiento</div>
+                    <div class="muted">Proyecto de Sistemas Expertos</div>
+                </div>
+                <div class="badge" id="whoStarts">Sorteando inicio…</div>
+            </div>
+            <div class="status" id="status">Preparando partida…</div>
+            <div class="board" id="board"></div>
+            <div class="row" style="margin-top: 12px; gap: 8px;">
+                <button id="btnNew">Nueva partida</button>
+                <button class="secondary" id="btnResetKB" title="Borrar toda la base de conocimiento">Reset BK</button>
+                <button class="ghost" id="btnHelp">Ayuda</button>
+            </div>
+            <div class="row" style="margin-top: 8px;">
+                <span class="pill ok" id="kbCount">BK: 0 estados</span>
+                <span class="pill warn" id="bkHit">—</span>
+            </div>
+        </section>
+        <section class="card" id="right">
+            <div class="title">Base de Conocimiento</div>
+            <div class="muted">Se actualiza automáticamente cuando la IA aprende un estado nuevo.</div>
+            <div class="row" style="margin: 12px 0 8px;">
+                <button id="btnExport">Exportar BK (.json)</button>
+                <input type="file" id="fileImport" accept="application/json" style="display:none;" />
+                <button class="secondary" id="btnImport">Importar BK</button>
+            </div>
+            
+            <div class="kb-box" id="kbView">{}</div>
+            
+            <details style="margin-top: 12px;">
+                <summary>¿Cómo decide la IA?</summary>
+                <div class="muted" style="margin-top: 6px;">
+                    1) Busca el estado exacto en la BK. Si existe, juega esa casilla.<br/>
+                    2) Si no existe: intenta <strong>ganar</strong> si hay línea disponible; luego <strong>bloquear</strong> una victoria rival; luego toma el <strong>centro</strong>, si no alguna <strong>esquina</strong>, y finalmente una casilla <strong>aleatoria</strong>.<br/>
+                    3) La decisión tomada se guarda como nuevo conocimiento.
+                </div>
+            </details>
+        </section>
+    </div>
+    <dialog id="helpDialog">
+        <div class="card" style="max-width: 560px;">
+            <div class="title">Ayuda / Manual Rápido</div>
+            <div class="muted">
+                <ul>
+                    <li>Click en una casilla vacía para jugar.</li>
+                    <li>El inicio de cada partida se decide por sorteo. Quien inicia usa 'X'.</li>
+                    <li>La IA consulta su base de conocimiento. Si el estado no existe, aprende una nueva jugada.</li>
+                    <li>Use “Exportar BK” para obtener el archivo JSON de la base (entregable).</li>
+                    <li>Use “Importar BK” para cargar una base previamente guardada.</li>
+                    <li>“Reset BK” borra permanentemente la base de conocimiento local.</li>
+                </ul>
+            </div>
+            <div class="row" style="margin-top: 10px; justify-content: end;">
+                <button id="btnCloseHelp">Cerrar</button>
+            </div>
+        </div>
+    </dialog>
+<script type="text/javascript" src="tictactoe.js"></script>
+</body>
+</html>
