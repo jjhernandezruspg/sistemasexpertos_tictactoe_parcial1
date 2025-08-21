@@ -1,4 +1,10 @@
+
 const cells = document.querySelectorAll(".cell");
+const resetBtn = document.createElement("button");
+resetBtn.textContent = "Reiniciar Juego";
+resetBtn.style.marginTop = "20px";
+document.body.appendChild(resetBtn);
+
 let currentPlayer = "X";
 let gameActive = true;
 
@@ -13,10 +19,8 @@ const winningCombinations = [
   [2, 4, 6]
 ];
 
-// Manejar clic en celda
 function handleClick(e) {
   const cell = e.target;
-  const index = Array.from(cells).indexOf(cell);
 
   if (cell.textContent !== "" || !gameActive) return;
 
@@ -37,7 +41,6 @@ function handleClick(e) {
   currentPlayer = currentPlayer === "X" ? "O" : "X";
 }
 
-// Verificar ganador
 function checkWinner() {
   return winningCombinations.some(combination => {
     return combination.every(index => {
@@ -46,19 +49,18 @@ function checkWinner() {
   });
 }
 
-// Verificar empate
 function isDraw() {
   return [...cells].every(cell => cell.textContent !== "");
 }
 
-// Reiniciar juego (opcional para futura versión)
 function resetGame() {
   cells.forEach(cell => (cell.textContent = ""));
   currentPlayer = "X";
   gameActive = true;
 }
 
-// Asignar eventos
 cells.forEach(cell => {
   cell.addEventListener("click", handleClick);
 });
+
+resetBtn.addEventListener("click", resetGame);
